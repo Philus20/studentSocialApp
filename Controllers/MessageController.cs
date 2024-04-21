@@ -21,7 +21,16 @@ namespace FinalProject.Controllers
 
             return await _context.Messages.ToListAsync();
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get1message(int id) 
+        {
+            var message = await _context.Messages.FirstOrDefaultAsync(x => x.id == id);
+            return Ok(message);
+        }
+        
 
+
+        
         [HttpGet("{sender}/{active}")]
         public async Task <ActionResult<Message>> Get(string sender, string active)
         {

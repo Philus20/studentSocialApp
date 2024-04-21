@@ -27,6 +27,14 @@
 
   <ItemGroup>
     <Folder Include="Files\profilePictures\" />
+    <Folder Include="Files\sharingFiles\" />
+    <Folder Include="PP\" />
+    <Folder Include="Files\posts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Files\sharingFiles\" />
+    <None Remove="PP\" />
+    <None Remove="Files\posts\" />
+  </ItemGroup>
 </Project>

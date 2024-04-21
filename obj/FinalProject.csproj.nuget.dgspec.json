@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/user/Desktop/StudentNetworking/FinalProject/FinalProject.csproj": {}
+    "/Users/user/Desktop/BackEnd/FinalProject/FinalProject.csproj": {}
   },
   "projects": {
-    "/Users/user/Desktop/StudentNetworking/FinalProject/FinalProject.csproj": {
+    "/Users/user/Desktop/BackEnd/FinalProject/FinalProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/Desktop/StudentNetworking/FinalProject/FinalProject.csproj",
+        "projectUniqueName": "/Users/user/Desktop/BackEnd/FinalProject/FinalProject.csproj",
         "projectName": "FinalProject",
-        "projectPath": "/Users/user/Desktop/StudentNetworking/FinalProject/FinalProject.csproj",
+        "projectPath": "/Users/user/Desktop/BackEnd/FinalProject/FinalProject.csproj",
         "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/Desktop/StudentNetworking/FinalProject/obj/",
+        "outputPath": "/Users/user/Desktop/BackEnd/FinalProject/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/user/.nuget/NuGet/NuGet.Config"

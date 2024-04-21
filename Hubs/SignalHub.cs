@@ -42,13 +42,30 @@ namespace FinalProject.Hubs
             await base.OnConnectedAsync();
 
         }
+        //      "id": 2067,
+        //"senderEmail": "t@gmail.com",
+        //"receiverEmail": "d@gmail.com",
+        //"subject": "this is Theo",
+        //"status": "0",
+        //"file": "b080e3b3-9c32-4167-b6fd-31e1356dcbab.jpeg",
+        //"isFile": "1",
+        //"ext": "image",
+        //"time": "2024-02-18T11:37:22.964465+00:00"
 
-        public async Task SendMessage(string name, string user, string message)
+        //public async Task SendMessage(string name, string user, string message)
+        //{
+        //   string toId = cs.GetConnectionIdByUser(user);
+
+
+        //    await Clients.Client(toId).SendAsync("ReceiveMessage", name, user, message);
+        //}
+
+        public async Task SendMessage(Message message)
         {
-           string toId = cs.GetConnectionIdByUser(user);
+            string toId = cs.GetConnectionIdByUser(message.ReceiverEmail);
 
-           
-            await Clients.Client(toId).SendAsync("ReceiveMessage", name, user, message);
+
+            await Clients.Client(toId).SendAsync("ReceiveMessage", message);
         }
         public async Task AddUserConnectionId(string name)
         {

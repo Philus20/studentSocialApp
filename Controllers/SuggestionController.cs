@@ -47,7 +47,7 @@ namespace FinalProject.Controllers
             // Find friends who share the same program but have no existing friend relationship
             var friendList = await _appDb.Students
                 .Where(student =>
-                    student.Id != loginStudent.Id &&
+                    student.Id != loginStudent.Id && student.Programme != null &&
                     student.Programme == loginStudent.Programme &&
                     !_appDb.Friendships
                         .Where(friendship =>

@@ -62,7 +62,7 @@ namespace FinalProject.Controllers
 
             if (!string.IsNullOrEmpty(student.profilePictureName))
             {
-                var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "profilePictures", student.profilePictureName);
+                var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "PP", student.profilePictureName);
 
                 if (System.IO.File.Exists(oldFilePath))
                 {
@@ -77,7 +77,7 @@ namespace FinalProject.Controllers
             // Generate a unique filename with the image file extension
             var uniqueFileName = $"{Guid.NewGuid()}.{fileExtension}";
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "profilePictures", uniqueFileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "PP",uniqueFileName);
 
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -93,7 +93,7 @@ namespace FinalProject.Controllers
 
 
             // Return success message with the file name
-            return Ok(new { message = "File uploaded successfully.", fileName = uniqueFileName });
+            return Ok(student);
         }
 
         // GET: api/file/{fileName}
@@ -101,7 +101,7 @@ namespace FinalProject.Controllers
         public IActionResult Get(string fileName)
         {
             // Construct the full path to the file
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "profilePictures", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "PP", fileName);
 
             // Log the file path for debugging
             Console.WriteLine($"Attempting to retrieve file at path: {filePath}");

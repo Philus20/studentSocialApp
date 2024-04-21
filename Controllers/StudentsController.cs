@@ -71,7 +71,7 @@ namespace FinalProject.Controllers
                 }
 
                 await _context.Students.AddAsync(student);
-                student.profilePictureName = "uaer.png";
+                student.profilePictureName = "uaer.jpeg";
                 await _context.SaveChangesAsync();
                 return CreatedAtAction(nameof(GetUserByEmail), new { email = student.email }, student);
 

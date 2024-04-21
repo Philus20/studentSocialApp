@@ -19,7 +19,67 @@ namespace FinalProject.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file, int studentId)
+        {
+            var student = await _context.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+
+            // Check if the student is not found
+            if (student == null)
+            {
+                // Handle the case where the student is not found
+                return NotFound($"Student with ID {studentId} not found");
+            }
+            //if (student is null)
+            //    return BadRequest("Student is not found");
+
+            if (file == null || file.Length == 0)
+                return BadRequest("Invalid file");
+
+            // Check if the file is an image based on its content type
+            if (!file.ContentType.StartsWith("image"))
+                return BadRequest("Invalid file type. Only images are allowed.");
+
+
+            if (!string.IsNullOrEmpty(student.profilePictureName))
+            {
+                var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "profilePictures", student.profilePictureName);
+
+                if (System.IO.File.Exists(oldFilePath))
+                {
+
+                    System.IO.File.Delete(oldFilePath);
+                }
+            }
+
+            // Get the file extension from the content type
+            var fileExtension = file.ContentType.Split("/").LastOrDefault();
+
+            // Generate a unique filename with the image file extension
+            var uniqueFileName = $"{Guid.NewGuid()}.{fileExtension}";
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Files", "profilePictures", uniqueFileName);
+
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+
+
+                await file.CopyToAsync(stream);
+                student.profilePictureName = uniqueFileName;
+                _context.Students.Update(student);
+            }
+
+            await _context.SaveChangesAsync();
+
+
+            // Return success message with the file name
+            return Ok(new { message = "File uploaded successfully.", fileName = uniqueFileName });
+        }
+
+
     }
+
 }
 //        [HttpGet]
 //        public async Task <IEnumerable<register>> getUsers()

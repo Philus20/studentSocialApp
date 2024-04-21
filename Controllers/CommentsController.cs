@@ -37,14 +37,15 @@ namespace FinalProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.
+                Where(f => f.PostId == id).ToListAsync();
 
             if (comment == null)
             {
                 return NotFound(); // Return a 404 Not Found response if the comment is not found
             }
 
-            return comment; // Return the found comment
+            return Ok(comment); // Return t comments
         }
 
 
@@ -53,11 +54,22 @@ namespace FinalProject.Controllers
         {
             try
             {
-                await _context.Comments.AddAsync(comment);
-                await _context.SaveChangesAsync();
+                var post = await _context.Posts.FirstOrDefaultAsync(x => x.Id == comment.PostId);
+                if (post != null)
+                {
+                    post.count = (post.count ?? 0) + 1; // Increment count by 1 (handling null value)
+                    _context.Posts.Update(post);
+                    comment.CommentDate = DateTime.Now;
+                    await _context.Comments.AddAsync(comment);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return NotFound(); // Post not found
+                }
 
                 // Return a 201 Created response with the added comment
-                return CreatedAtAction(nameof(GetComment), new { id = comment.Id }, comment);
+                return Ok(comment);
             }
             catch (Exception ex)
             {
@@ -65,6 +77,7 @@ namespace FinalProject.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateComment(int id, [FromBody] Comment updatedComment)
         {

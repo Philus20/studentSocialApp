@@ -8,15 +8,18 @@ namespace FinalProject.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Post> Posts { get; set; }
-
+        public DbSet<StudentComment> stuCom { get; set; }
+        public DbSet<QuestionComment> QuestionComments { get; set; }
         public DbSet<register> Registers { get; set; }
-
+        public DbSet<Question> Questions { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<filesMessages> FileMessages { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         public DbSet <User> Users { get;set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=stuNet;User Id=sa;Password=dockerStrongPwd123;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=studentNetworking;User Id=sa;Password=dockerStrongPwd123;TrustServerCertificate=True;");
         }
     }
 }
